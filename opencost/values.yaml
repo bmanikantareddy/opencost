@@ -34,7 +34,8 @@ plugins:
     #   }
 
 # -- List of secret names to use for pulling the images
-imagePullSecrets: []
+imagePullSecrets:
+- name: regcred
 
 serviceAccount:
   # -- Specifies whether a service account should be created
@@ -372,7 +373,7 @@ opencost:
       # -- UI container image registry
       registry: iad.ocir.io
       # -- UI container image name
-      repository: /oalprod/opencost-ui
+      repository: oalprod/opencost-ui
       # -- UI container image tag
       # @default -- `""` (use appVersion in Chart.yaml)
       tag: "1.111.0"

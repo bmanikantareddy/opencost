@@ -41,3 +41,64 @@ NAMESPACE: opencost
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
+
+
+image issue: 
+
+manbuchi-mac:opencost manbuchi$ k get no
+NAME           STATUS   ROLES   AGE   VERSION
+10.3.234.185   Ready    node    23d   v1.29.1
+10.3.234.19    Ready    node    40d   v1.29.1-6+b511b8ca8a18c5
+10.3.234.200   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty
+10.3.234.222   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty
+10.3.234.236   Ready    node    23d   v1.29.1
+10.3.234.240   Ready    node    40d   v1.29.1-6+b511b8ca8a18c5
+manbuchi-mac:opencost manbuchi$ kubectl get nodes -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.nodeInfo.architecture}{"\n"}{end}'
+10.3.234.185	amd64
+10.3.234.19	    amd64
+10.3.234.200	arm64
+10.3.234.222	arm64
+10.3.234.236	amd64
+10.3.234.240	amd64
+manbuchi-mac:opencost manbuchi$ k get no -owide
+NAME           STATUS   ROLES   AGE   VERSION                          INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                  KERNEL-VERSION                    CONTAINER-RUNTIME
+10.3.234.185   Ready    node    23d   v1.29.1                          10.3.234.185   <none>        Oracle Linux Server 8.9   5.15.0-202.135.2.el8uek.x86_64    cri-o://1.29.0-179.el8
+10.3.234.19    Ready    node    40d   v1.29.1-6+b511b8ca8a18c5         10.3.234.19    <none>        Oracle Linux Server 8.9   5.15.0-206.153.7.el8uek.x86_64    cri-o://1.29.1-192.el8
+10.3.234.200   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty   10.3.234.200   <none>        Oracle Linux Server 8.9   5.15.0-206.153.7.el8uek.aarch64   cri-o://1.29.1-192.el8
+10.3.234.222   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty   10.3.234.222   <none>        Oracle Linux Server 8.9   5.15.0-206.153.7.el8uek.aarch64   cri-o://1.29.1-192.el8
+10.3.234.236   Ready    node    23d   v1.29.1                          10.3.234.236   <none>        Oracle Linux Server 8.9   5.15.0-202.135.2.el8uek.x86_64    cri-o://1.29.0-179.el8
+10.3.234.240   Ready    node    40d   v1.29.1-6+b511b8ca8a18c5         10.3.234.240   <none>        Oracle Linux Server 8.9   5.15.0-206.153.7.el8uek.x86_64    cri-o://1.29.1-192.el8
+manbuchi-mac:opencost manbuchi$ docker pull iad.ocir.io/oalprod/opencost-ui:1.111.0
+-------------
+docker inspect  iad.ocir.io/oalprod/opencost-ui:1.111.0
+image architecture
+
+      "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 68918586,
+--------------
+manbuchi-mac:opencost manbuchi$ k get po -n opencost
+NAME                        READY   STATUS             RESTARTS         AGE
+opencost-746cf65f78-pjtzl   0/2     CrashLoopBackOff   24 (2m31s ago)   39m
+manbuchi-mac:opencost manbuchi$ k get po -n opencost -owide
+NAME                        READY   STATUS             RESTARTS         AGE   IP             NODE           NOMINATED NODE   READINESS GATES
+opencost-746cf65f78-pjtzl   0/2     CrashLoopBackOff   24 (2m41s ago)   39m   10.244.1.177   10.3.234.200   <none>           <none>
+
+Nodes based on the labels : 
+
+manbuchi-mac:opencost manbuchi$ k get no -l arch=amd64
+
+NAME           STATUS   ROLES   AGE   VERSION
+10.3.234.185   Ready    node    23d   v1.29.1
+10.3.234.236   Ready    node    23d   v1.29.1
+manbuchi-mac:opencost manbuchi$
+manbuchi-mac:opencost manbuchi$ k get no -l beta.kubernetes.io/arch=amd64
+NAME           STATUS   ROLES   AGE   VERSION
+10.3.234.185   Ready    node    23d   v1.29.1
+10.3.234.19    Ready    node    40d   v1.29.1-6+b511b8ca8a18c5
+10.3.234.236   Ready    node    23d   v1.29.1
+10.3.234.240   Ready    node    40d   v1.29.1-6+b511b8ca8a18c5
+manbuchi-mac:opencost manbuchi$ k get no -l beta.kubernetes.io/arch=arm64
+NAME           STATUS   ROLES   AGE   VERSION
+10.3.234.200   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty
+10.3.234.222   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty
