@@ -1,0 +1,26 @@
+
+Open cost for OCI OKE: 
+
+
+https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/values.yaml
+
+https://raw.githubusercontent.com/opencost/opencost/develop/kubernetes/prometheus/extraScrapeConfigs.yaml
+
+https://www.opencost.io/docs/configuration/oracle
+
+https://github.com/opencost/opencost-helm-chart/blob/main/charts/opencost/values.yaml -> open cost values.yaml file 
+
+
+images used in Opencost: 
+
+docker tag ghcr.io/opencost/opencost-ui:1.111.0@sha256:f7221e7a708d71663f5eca6c238268757eb4352f3e9f46b1029d33ab4e53fd8a iad.ocir.io/oalprod/opencost-ui:1.111.0
+
+docker push iad.ocir.io/oalprod/opencost-ui:1.111.0
+
+docker tag ghcr.io/opencost/opencost:1.111.0@sha256:6aa68e52a24b14ba41f23db08d1b9db1429a1c0300f4c0381ecc2c61fc311a97 iad.ocir.io/oalprod/opencost:1.111.0
+docker push iad.ocir.io/oalprod/opencost:1.111.0
+
+https://www.youtube.com/watch?v=P46g6go2KEk --> OpenCost Kubernetes cost monitoring deep dive
+
+
+
