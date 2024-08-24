@@ -24,3 +24,20 @@ https://www.youtube.com/watch?v=P46g6go2KEk --> OpenCost Kubernetes cost monitor
 
 
 
+
+helm chart:
+helm repo add opencost https://opencost.github.io/opencost-helm-chart
+helm repo update
+
+we can install directly like this or with downloaded chart , use 2nd command
+1. helm install opencost opencost/opencost -f values.yaml --namespace opencost --create-namespace
+
+2. helm install opencost -f values.yaml --namespace opencost --create-namespace .
+
+manbuchi-mac:opencost manbuchi$ helm install opencost -f values.yaml --namespace opencost --create-namespace .
+NAME: opencost
+LAST DEPLOYED: Sat Aug 24 19:37:30 2024
+NAMESPACE: opencost
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
