@@ -280,7 +280,7 @@ opencost:
 
     serviceMonitor:
       # -- Create ServiceMonitor resource for scraping metrics using PrometheusOperator
-      enabled: false
+      enabled: true
       # -- Additional labels to add to the ServiceMonitor
       additionalLabels: {}
       # -- Specify if the ServiceMonitor will be deployed into a different namespace (blank deploys into same namespace as chart)
@@ -485,7 +485,8 @@ opencost:
   # -- Toleration labels for pod assignment
   tolerations: []
   # -- Node labels for pod assignment
-  nodeSelector: {}
+  nodeSelector:
+    arch: amd64
   # -- Affinity settings for pod assignment
   affinity: {}
   # -- Assign custom TopologySpreadConstraints rules
