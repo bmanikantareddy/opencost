@@ -102,3 +102,67 @@ manbuchi-mac:opencost manbuchi$ k get no -l beta.kubernetes.io/arch=arm64
 NAME           STATUS   ROLES   AGE   VERSION
 10.3.234.200   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty
 10.3.234.222   Ready    node    39d   v1.29.1-6+5411600c5763ad-dirty
+
+
+manbuchi-mac:opencost manbuchi$ helm uninstall opencost -n opencost
+release "opencost" uninstalled
+manbuchi-mac:opencost manbuchi$ helm install opencost -f values.yaml --namespace opencost --create-namespace .
+NAME: opencost
+LAST DEPLOYED: Sun Aug 25 08:54:27 2024
+NAMESPACE: opencost
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+manbuchi-mac:opencost manbuchi$ k get all -n opencost
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/opencost-7f89655587-sknd7   1/2     Running   0          16s
+
+NAME               TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)             AGE
+service/opencost   ClusterIP   10.96.65.24   <none>        9003/TCP,9090/TCP   18s
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/opencost   0/1     1            0           19s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/opencost-7f89655587   1         1         0       19s
+manbuchi-mac:opencost manbuchi$ k get serviceMonitor -A
+NAMESPACE    NAME                                                 AGE
+monitoring   opencost                                             35s
+monitoring   prom-monitoring-kube-prome-apiserver                 23d
+monitoring   prom-monitoring-kube-prome-coredns                   23d
+monitoring   prom-monitoring-kube-prome-kube-controller-manager   23d
+monitoring   prom-monitoring-kube-prome-kube-etcd                 23d
+monitoring   prom-monitoring-kube-prome-kube-proxy                23d
+monitoring   prom-monitoring-kube-prome-kube-scheduler            23d
+monitoring   prom-monitoring-kube-prome-kubelet                   23d
+monitoring   prom-monitoring-kube-prome-operator                  23d
+monitoring   prom-monitoring-kube-prome-prometheus                23d
+monitoring   prom-monitoring-kube-state-metrics                   23d
+monitoring   prom-monitoring-prometheus-node-exporter             23d
+monitoring   tgi-metrics                                          23d
+monitoring   vllm-metrics                                         23d
+manbuchi-mac:opencost manbuchi$ k get all -n opencost
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/opencost-7f89655587-sknd7   2/2     Running   0          48s
+
+NAME               TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)             AGE
+service/opencost   ClusterIP   10.96.65.24   <none>        9003/TCP,9090/TCP   50s
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/opencost   1/1     1            1           51s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/opencost-7f89655587   1         1         1       51s
+manbuchi-mac:opencost manbuchi$ k get all -n opencost
+NAME                            READY   STATUS    RESTARTS   AGE
+pod/opencost-7f89655587-sknd7   2/2     Running   0          103s
+
+NAME               TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)             AGE
+service/opencost   ClusterIP   10.96.65.24   <none>        9003/TCP,9090/TCP   105s
+
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/opencost   1/1     1            1           106s
+
+NAME                                  DESIRED   CURRENT   READY   AGE
+replicaset.apps/opencost-7f89655587   1         1         1       106s
+manbuchi-mac:opencost manbuchi$

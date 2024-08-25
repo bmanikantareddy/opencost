@@ -284,7 +284,7 @@ opencost:
       # -- Additional labels to add to the ServiceMonitor
       additionalLabels: {}
       # -- Specify if the ServiceMonitor will be deployed into a different namespace (blank deploys into same namespace as chart)
-      namespace: ""
+      namespace: "monitoring"
       # -- Interval at which metrics should be scraped
       scrapeInterval: 30s
       # -- Timeout after which the scrape is ended
